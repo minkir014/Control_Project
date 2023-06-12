@@ -16,7 +16,7 @@ D = 0;
 % Creating a State Space Object
 sys = ss(A, B, C, D);
 
-% Getting the Trasfer Function of The Tank Flow Rate with respect to the
+% Getting the Trasfer Function of The Tank Flow Rate due to the
 % Input Voltage
 [n, d] = ss2tf(A, B, C ,D);
 sys_tf = tf(n, d);
@@ -47,8 +47,8 @@ else
     fprintf('System is not observable\n');
 end
 
-% Getting The transfer of function of the Height of The tank with respect 
-% to The input Voltage
+% Getting The transfer of function of the Height of The tank due to 
+% The input Voltage
 C_new = [0 0 1];
 sys_new = ss(A, B, C_new, D);
 [n_new, d_new] = ss2tf(A, B, C_new ,D);
@@ -94,7 +94,8 @@ ylabel("Amplitude")
 fprintf('Steady state value of the system due to step input = %d\n', dcgain(sys_tf));
 
 % Creating Feedback System after adding a lead compensator to stabilize the system
-% and plotting it with its transient information (rise time, peak time, etc..)
+% and plotting it and printing its transient information 
+% (rise time, peak time, etc..)
 G = tf([1],[1 1000]);
 sys_feedback_new = feedback(G*sys_tf_new, 1);
 figure('Name','Step Response','NumberTitle','off');
